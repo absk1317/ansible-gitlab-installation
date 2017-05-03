@@ -1,0 +1,12 @@
+---
+- name: Install Gitlab
+  apt: name=gitlab-ce state=latest update_cache=true
+  become: yes
+  become_method: sudo
+
+- name: Copy gitlab configuration
+  template: src=gitlab_config dest=/etc/gitlab/gitlab.rb owner=root group=root
+  become: yes
+  become_method: sudo
+
+

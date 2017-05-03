@@ -1,0 +1,3 @@
+# server
+gitlab_fqdn: CLIENT_ADDRESS_HERE
+gitlab_server_ip: GITLAB_IP_HERE

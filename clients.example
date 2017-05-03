@@ -1,0 +1,2 @@
+[clients]
+HOST_ADDRESS_HERE     ansible_connection=ssh  ansible_user=USERNAME_HERE

@@ -1,0 +1,23 @@
+# Install python and aptitude on the target machines (apt-get install python aptitude)
+# Copy ssh public key to machines (ssh-copy-id user@host)
+---
+- name: Install Gitlab
+  hosts: clients
+  become: yes
+  become_method: sudo
+  pre_tasks:
+    - name: apt update
+      raw: apt update -qq
+    - name: install dependencies
+      raw: apt install -y curl openssh-server ca-certificates postfix
+    - name: stop apache
+      raw: ps aux | grep \[a\]pache | awk '{print $2}' | xargs kill -9
+    - name: remove apache from auto start
+      raw: update-rc.d -f apache2 remove
+    - name: install nginx
+      raw: apt install nginx -y
+    - name: add Gitlab package server
+      # raw: curl -sS https://packages.gitlab.com/install/repositories/gitlab/raspberry-pi2/script.deb.sh | sudo bash
+      raw: curl -sS https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.deb.sh | sudo bash
+  roles:
+    - gitlab
